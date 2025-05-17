@@ -113,18 +113,20 @@
   FACEBOOK: HUNGVAN2009
 </div>
 
-<audio id="bgMusic" src="Nonstop TikTok 2025 🎼 Mưa Rơi Vào Phòng Remix - Bầu Trời Ấy Nơi Xa Thế Nào Rồi Remix Hot TikTok.mp3" preload="auto" loop></audio>
+<!-- Đổi tên file mp3 thành không dấu, không emoji -->
+<audio id="bgMusic" src="nhac-remix.mp3" preload="auto" loop playsinline muted></audio>
 
 <script>
 const bgMusic = document.getElementById("bgMusic");
 const musicToggle = document.getElementById("musicToggle");
 
-// iOS cần tương tác người dùng trước khi cho phép phát
+// Sự kiện bật/tắt nhạc
 musicToggle.addEventListener("click", () => {
   if (bgMusic.paused) {
+    bgMusic.muted = false; // bỏ muted nếu có
     bgMusic.play().then(() => {
       musicToggle.textContent = "Tắt nhạc 🔈";
-    }).catch(err => {
+    }).catch(() => {
       alert("⚠️ Không phát được nhạc. Trình duyệt iOS yêu cầu thao tác tay.");
     });
   } else {
@@ -133,6 +135,7 @@ musicToggle.addEventListener("click", () => {
   }
 });
 
+// Dự đoán tài xỉu
 function isValidMD5(md5) {
   return /^[a-fA-F0-9]{32}$/.test(md5);
 }
