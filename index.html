@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
@@ -6,9 +6,12 @@
   <title>Tool Tài Xỉu 🎲</title>
   <style>
     body {
-      margin: 0; padding: 0;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       height: 100vh;
       padding-bottom: 90px;
       background: linear-gradient(45deg, #001f3f, #0074D9);
@@ -16,8 +19,16 @@
       font-family: 'Arial', sans-serif;
       text-align: center;
       text-shadow: 2px 2px 10px rgba(0, 255, 0, 0.8);
+      animation: ledBorder 3s infinite alternate;
     }
-
+    @keyframes ledBorder {
+      0% { box-shadow: 0 0 10px red; }
+      20% { box-shadow: 0 0 10px orange; }
+      40% { box-shadow: 0 0 10px yellow; }
+      60% { box-shadow: 0 0 10px green; }
+      80% { box-shadow: 0 0 10px blue; }
+      100% { box-shadow: 0 0 10px violet; }
+    }
     h1 {
       font-size: 22px;
       background: rgba(0, 0, 0, 0.7);
@@ -26,40 +37,46 @@
       border: 3px solid #00FF00;
       animation: glow 1.5s infinite alternate;
     }
-
     @keyframes glow {
       0% { text-shadow: 2px 2px 10px rgba(0, 255, 0, 0.8); }
       100% { text-shadow: 2px 2px 20px rgba(0, 255, 0, 1); }
     }
-
-    input, button {
-      margin-top: 15px;
+    input {
+      width: 250px;
       padding: 10px;
       font-size: 16px;
       border: 2px solid #00FF00;
       border-radius: 5px;
       background: black;
       color: #00FF00;
+      text-align: center;
+      margin-top: 20px;
     }
-
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: 2px solid #00FF00;
+      background: black;
+      color: #00FF00;
+      border-radius: 5px;
+      cursor: pointer;
+    }
     button:hover {
       background: #00FF00;
       color: black;
     }
-
     #error {
       color: red;
       font-size: 18px;
       margin-top: 10px;
     }
-
     .circle-container {
       display: flex;
       justify-content: center;
       gap: 50px;
       margin-top: 20px;
     }
-
     .circle {
       width: 80px;
       height: 80px;
@@ -67,16 +84,13 @@
       border: 3px solid #00FF00;
       opacity: 0.3;
     }
-
     .tai { background: black; }
     .xiu { background: white; }
-
     @keyframes blink {
       0% { opacity: 1; }
       50% { opacity: 0.3; }
       100% { opacity: 1; }
     }
-
     .footer {
       position: fixed;
       bottom: 0;
@@ -93,86 +107,88 @@
   </style>
 </head>
 <body>
+  <h1>CHÀO MỪNG BẠN ĐÃ VÀO ĐƯỢC TOOL TÀI XỈU 🎲 CỦA BỐ HÙNGISME10</h1>
 
-<h1>CHÀO MỪNG BẠN ĐÃ VÀO TOOL TÀI XỈU 🎲 CỦA BỐ HÙNGISME10</h1>
+  <input type="text" id="md5Input" placeholder="Nhập mã MD5" />
+  <button onclick="predict()">Dự đoán</button>
+  <button id="musicToggle">Bật nhạc 🔇</button>
+  <p id="error"></p>
 
-<input type="text" id="md5Input" placeholder="Nhập mã MD5" />
-<button onclick="predict()">Dự đoán</button>
-<button id="musicToggle">Bật nhạc 🔇</button>
+  <div class="circle-container">
+    <div id="tai" class="circle tai"></div>
+    <div id="xiu" class="circle xiu"></div>
+  </div>
 
-<p id="error"></p>
+  <div class="footer">
+    CHỦ TOOL HUNGISME10<br>
+    TELEGRAM: HUNGISME10<br>
+    TIKTOK: HUNGISME10<br>
+    FACEBOOK: HUNGVAN2009
+  </div>
 
-<div class="circle-container">
-  <div id="tai" class="circle tai"></div>
-  <div id="xiu" class="circle xiu"></div>
-</div>
+  <!-- Audio -->
+  <audio id="bgMusic" src="nhac.mp3" preload="auto" loop></audio>
 
-<div class="footer">
-  CHỦ TOOL HUNGISME10<br>
-  TELEGRAM: HUNGISME10<br>
-  TIKTOK: HUNGISME10<br>
-  FACEBOOK: HUNGVAN2009
-</div>
+  <!-- Script -->
+  <script>
+    const bgMusic = document.getElementById("bgMusic");
+    const musicToggle = document.getElementById("musicToggle");
+    let isPlaying = false;
 
-<audio id="bgMusic" src="nhac.mp3" preload="auto" loop playsinline muted></audio>
+    musicToggle.addEventListener("click", () => {
+      if (!isPlaying) {
+        bgMusic.play()
+          .then(() => {
+            isPlaying = true;
+            musicToggle.textContent = "Tắt nhạc 🔈";
+          })
+          .catch(err => {
+            alert("⚠️ Trình duyệt yêu cầu bạn tương tác (click nút) để phát nhạc.");
+            console.error("Không phát được nhạc:", err);
+          });
+      } else {
+        bgMusic.pause();
+        isPlaying = false;
+        musicToggle.textContent = "Bật nhạc 🔇";
+      }
+    });
 
-<script>
-const bgMusic = document.getElementById("bgMusic");
-const musicToggle = document.getElementById("musicToggle");
+    function isValidMD5(md5) {
+      return /^[a-fA-F0-9]{32}$/.test(md5);
+    }
 
-musicToggle.addEventListener("click", () => {
-  if (bgMusic.paused) {
-    bgMusic.muted = false;
-    bgMusic.play()
-      .then(() => {
-        musicToggle.textContent = "Tắt nhạc 🔈";
-      })
-      .catch(err => {
-        console.warn("Không phát được nhạc:", err);
-        alert("⚠️ Trình duyệt yêu cầu bạn tương tác (click nút) để phát nhạc.");
-      });
-  } else {
-    bgMusic.pause();
-    musicToggle.textContent = "Bật nhạc 🔇";
-  }
-});
+    function hexXOR(md5) {
+      let result = 0;
+      for (let i = 0; i < md5.length; i += 2) {
+        result ^= parseInt(md5.substr(i, 2), 16);
+      }
+      return result % 2 === 0 ? "Tài" : "Xỉu";
+    }
 
-function isValidMD5(md5) {
-  return /^[a-fA-F0-9]{32}$/.test(md5);
-}
+    function predict() {
+      let input = document.getElementById("md5Input").value.trim();
+      let errorText = document.getElementById("error");
+      let tai = document.getElementById("tai");
+      let xiu = document.getElementById("xiu");
 
-function hexXOR(md5) {
-  let result = 0;
-  for (let i = 0; i < md5.length; i += 2) {
-    result ^= parseInt(md5.substr(i, 2), 16);
-  }
-  return result % 2 === 0 ? "Tài" : "Xỉu";
-}
+      if (!isValidMD5(input)) {
+        errorText.textContent = "Lỗi 🆘: Mã MD5 không hợp lệ!";
+        tai.style.animation = "";
+        xiu.style.animation = "";
+        return;
+      }
 
-function predict() {
-  let input = document.getElementById("md5Input").value.trim();
-  let errorText = document.getElementById("error");
-  let tai = document.getElementById("tai");
-  let xiu = document.getElementById("xiu");
+      errorText.textContent = "";
+      let result = hexXOR(input);
 
-  if (!isValidMD5(input)) {
-    errorText.textContent = "Lỗi 🆘: Mã MD5 không hợp lệ!";
-    tai.style.animation = "";
-    xiu.style.animation = "";
-    return;
-  }
-
-  errorText.textContent = "";
-  let result = hexXOR(input);
-
-  if (result === "Tài") {
-    tai.style.animation = "blink 1s infinite";
-    xiu.style.animation = "";
-  } else {
-    xiu.style.animation = "blink 1s infinite";
-    tai.style.animation = "";
-  }
-}
-</script>
+      if (result === "Tài") {
+        tai.style.animation = "blink 1s infinite";
+        xiu.style.animation = "";
+      } else {
+        xiu.style.animation = "blink 1s infinite";
+        tai.style.animation = "";
+      }
+    }
+  </script>
 </body>
 </html>
