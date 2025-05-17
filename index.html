@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
@@ -16,16 +16,8 @@
       font-family: 'Arial', sans-serif;
       text-align: center;
       text-shadow: 2px 2px 10px rgba(0, 255, 0, 0.8);
-      animation: ledBorder 3s infinite alternate;
     }
-    @keyframes ledBorder {
-      0% { box-shadow: 0 0 10px red; }
-      20% { box-shadow: 0 0 10px orange; }
-      40% { box-shadow: 0 0 10px yellow; }
-      60% { box-shadow: 0 0 10px green; }
-      80% { box-shadow: 0 0 10px blue; }
-      100% { box-shadow: 0 0 10px violet; }
-    }
+
     h1 {
       font-size: 22px;
       background: rgba(0, 0, 0, 0.7);
@@ -34,35 +26,40 @@
       border: 3px solid #00FF00;
       animation: glow 1.5s infinite alternate;
     }
+
     @keyframes glow {
       0% { text-shadow: 2px 2px 10px rgba(0, 255, 0, 0.8); }
       100% { text-shadow: 2px 2px 20px rgba(0, 255, 0, 1); }
     }
+
     input, button {
-      font-size: 16px;
+      margin-top: 15px;
       padding: 10px;
-      margin-top: 10px;
+      font-size: 16px;
       border: 2px solid #00FF00;
       border-radius: 5px;
       background: black;
       color: #00FF00;
-      text-align: center;
     }
+
     button:hover {
       background: #00FF00;
       color: black;
     }
+
     #error {
       color: red;
       font-size: 18px;
       margin-top: 10px;
     }
+
     .circle-container {
       display: flex;
       justify-content: center;
       gap: 50px;
       margin-top: 20px;
     }
+
     .circle {
       width: 80px;
       height: 80px;
@@ -70,13 +67,16 @@
       border: 3px solid #00FF00;
       opacity: 0.3;
     }
+
     .tai { background: black; }
     .xiu { background: white; }
+
     @keyframes blink {
       0% { opacity: 1; }
       50% { opacity: 0.3; }
       100% { opacity: 1; }
     }
+
     .footer {
       position: fixed;
       bottom: 0;
@@ -94,11 +94,12 @@
 </head>
 <body>
 
-<h1>CHÀO MỪNG BẠN ĐÃ VÀO ĐƯỢC TOOL TÀI XỈU 🎲 CỦA BỐ HÙNGISME10</h1>
+<h1>CHÀO MỪNG BẠN ĐÃ VÀO TOOL TÀI XỈU 🎲 CỦA BỐ HÙNGISME10</h1>
 
 <input type="text" id="md5Input" placeholder="Nhập mã MD5" />
 <button onclick="predict()">Dự đoán</button>
 <button id="musicToggle">Bật nhạc 🔇</button>
+
 <p id="error"></p>
 
 <div class="circle-container">
@@ -113,29 +114,29 @@
   FACEBOOK: HUNGVAN2009
 </div>
 
-<!-- Đổi tên file mp3 thành không dấu, không emoji -->
-<audio id="bgMusic" src="nhac-remix.mp3" preload="auto" loop playsinline muted></audio>
+<audio id="bgMusic" src="nhac.mp3" preload="auto" loop playsinline muted></audio>
 
 <script>
 const bgMusic = document.getElementById("bgMusic");
 const musicToggle = document.getElementById("musicToggle");
 
-// Sự kiện bật/tắt nhạc
 musicToggle.addEventListener("click", () => {
   if (bgMusic.paused) {
-    bgMusic.muted = false; // bỏ muted nếu có
-    bgMusic.play().then(() => {
-      musicToggle.textContent = "Tắt nhạc 🔈";
-    }).catch(() => {
-      alert("⚠️ Không phát được nhạc. Trình duyệt iOS yêu cầu thao tác tay.");
-    });
+    bgMusic.muted = false;
+    bgMusic.play()
+      .then(() => {
+        musicToggle.textContent = "Tắt nhạc 🔈";
+      })
+      .catch(err => {
+        console.warn("Không phát được nhạc:", err);
+        alert("⚠️ Trình duyệt yêu cầu bạn tương tác (click nút) để phát nhạc.");
+      });
   } else {
     bgMusic.pause();
     musicToggle.textContent = "Bật nhạc 🔇";
   }
 });
 
-// Dự đoán tài xỉu
 function isValidMD5(md5) {
   return /^[a-fA-F0-9]{32}$/.test(md5);
 }
