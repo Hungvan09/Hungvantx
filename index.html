@@ -1,138 +1,229 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OngTrum.Net - Trang chủ</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ONG TRUM - Trang chủ</title>
   <style>
+    /* Reset cơ bản */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
     body {
       font-family: Arial, sans-serif;
-      margin: 0;
       background-color: #f8f8f8;
-    }
-    header, nav, footer {
-      background-color: #0077a3;
-      color: white;
-      padding: 10px;
+      color: #333;
     }
     header {
+      background-color: #0077a3;
+      color: white;
+      padding: 10px 20px;
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
     }
-    .logo {
-      font-size: 24px;
+    header .logo {
       font-weight: bold;
-    }
-    .search-bar {
-      flex-grow: 1;
-      margin: 0 20px;
-    }
-    .search-bar input {
-      width: 100%;
-      padding: 8px;
+      font-size: 24px;
+      user-select: none;
     }
     nav {
       display: flex;
-      justify-content: center;
       gap: 15px;
-      background-color: #005f80;
+      flex-wrap: wrap;
     }
     nav a {
       color: white;
       text-decoration: none;
-      font-weight: bold;
+      font-weight: 600;
+      padding: 6px 10px;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
     }
-    .content {
-      padding: 20px;
+    nav a:hover {
+      background-color: #005f80;
+    }
+    .user-info {
+      color: white;
+      user-select: none;
+    }
+    .user-info a {
+      color: #fff;
+      text-decoration: underline;
+      margin-left: 5px;
+      font-weight: 600;
+    }
+    .search-bar {
+      flex-grow: 1;
+      margin: 10px 20px;
+      max-width: 400px;
+    }
+    .search-bar input {
+      width: 100%;
+      padding: 8px 12px;
+      border-radius: 5px;
+      border: none;
+      font-size: 16px;
     }
     .announcement {
       background-color: white;
+      margin: 20px auto;
       padding: 20px;
       border-radius: 10px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      margin-bottom: 20px;
+      max-width: 900px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      color: #222;
+      line-height: 1.5;
+    }
+    .announcement strong {
+      color: #0077a3;
+    }
+    .announcement p {
+      margin: 8px 0;
+    }
+    .announcement p.red {
+      color: darkred;
+      font-weight: 600;
+    }
+    .product-list {
+      max-width: 900px;
+      margin: 0 auto 40px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill,minmax(280px,1fr));
+      gap: 20px;
     }
     .product-card {
-      background: white;
-      padding: 15px;
-      margin-bottom: 15px;
+      background-color: white;
       border-radius: 10px;
-      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
     .product-card h3 {
-      margin: 0 0 10px;
+      margin-bottom: 8px;
+      color: #0077a3;
+    }
+    .product-card p {
+      margin-bottom: 10px;
+      font-size: 14px;
+      color: #555;
+    }
+    .product-card p strong {
+      color: #e63946;
+      font-weight: 700;
+    }
+    .product-card p del {
+      color: #999;
+      margin-right: 8px;
+    }
+    .product-card .buttons {
+      margin-top: auto;
     }
     .product-card button {
-      background-color: #0077a3;
-      color: white;
-      border: none;
-      padding: 8px 12px;
-      margin-right: 10px;
       cursor: pointer;
+      background-color: #0077a3;
+      border: none;
+      color: white;
+      padding: 8px 12px;
       border-radius: 6px;
+      font-weight: 600;
+      margin-right: 10px;
+      transition: background-color 0.3s ease;
+    }
+    .product-card button:hover {
+      background-color: #005f80;
     }
     footer {
-      text-align: center;
-      font-size: 14px;
       background-color: #003d4d;
-      padding: 20px 10px;
+      color: white;
+      text-align: center;
+      padding: 20px 15px;
+      font-size: 14px;
+      user-select: none;
+    }
+    /* Responsive */
+    @media (max-width: 600px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .search-bar {
+        margin: 10px 0 0 0;
+        width: 100%;
+        max-width: 100%;
+      }
+      nav {
+        width: 100%;
+        justify-content: space-around;
+        margin-top: 10px;
+      }
+      .product-list {
+        grid-template-columns: 1fr;
+        max-width: 100%;
+        margin: 0 10px 40px;
+      }
     }
   </style>
 </head>
 <body>
   <header>
     <div class="logo">ONG TRUM</div>
-    <div class="search-bar">
-      <input type="text" placeholder="Tìm kiếm sản phẩm...">
+    <nav>
+      <a href="#">Trang chủ</a>
+      <a href="#">Sản phẩm</a>
+      <a href="#">Nạp tiền</a>
+      <a href="#">Lịch sử</a>
+      <a href="#">Affiliate Program</a>
+      <a href="#">Tài liệu API</a>
+    </nav>
+    <div class="user-info">
+      <span>0</span> | <span>User</span> | <a href="#">Login</a>
     </div>
-    <div>
-      <span>0</span> |
-      <span>User</span> |
-      <a href="#" style="color:white">Login</a>
+    <div class="search-bar">
+      <input type="text" placeholder="Tìm kiếm sản phẩm..." />
     </div>
   </header>
 
-  <nav>
-    <a href="#">Trang chủ</a>
-    <a href="#">Sản phẩm</a>
-    <a href="#">Nạp tiền</a>
-    <a href="#">Lịch sử</a>
-    <a href="#">Affiliate Program</a>
-    <a href="#">Tài liệu API</a>
-  </nav>
+  <section class="announcement" role="region" aria-label="Thông báo">
+    <p><strong>🔌 Nạp từ 100k nhận thêm 20% số tiền nạp!</strong></p>
+    <p class="red">💬 Gia hạn gmail acc clon ff 2k/1 tháng</p>
+    <p class="red">💬 Mua sll acc clon ff giá 3k/1 acc ib admin</p>
+    <p>📌 Ae mua phải nick bị khóa, vui lòng quay video + mã đơn hàng</p>
+    <p>📌 Gửi qua zalo cho <strong style="color:blue">admin</strong> để được hoàn tiền</p>
+    <p><strong style="color:blue">Admin C</strong> - Rep Chậm</p>
+    <p><strong style="color:blue">Admin T</strong> - Rep Nhanh</p>
+  </section>
 
-  <div class="content">
-    <div class="announcement">
-      <p><strong>🔌 Nạp từ 100k nhận thêm 20% số tiền nạp!</strong></p>
-      <p style="color: darkred">💬 Gia hạn gmail acc clon ff 2k/1 tháng</p>
-      <p style="color: darkred">💬 Mua sll acc clon ff giá 3k/1 acc ib admin</p>
-      <p>📌 Ae mua phải nick bị khóa, vui lòng quay video + mã đơn hàng</p>
-      <p>📌 Gửi qua zalo cho <strong style="color:blue">admin</strong> để được hoàn tiền</p>
-      <p><strong style="color:blue">Admin C</strong> - Rep Chậm</p>
-      <p><strong style="color:blue">Admin T</strong> - Rep Nhanh</p>
-    </div>
-
-    <div class="product-card">
+  <section class="product-list" role="main" aria-label="Danh sách sản phẩm">
+    <article class="product-card">
       <h3>Free Fire</h3>
       <p>Kho hàng: 16 | Đã bán: 17</p>
       <p><strong>40.000đ</strong></p>
-      <p>Mod skin FF (Người Khác Nhìn Thấy) cho anh em ios , đã có hướng dẫn chi tiết khi mua hàng</p>
-      <button>Chi tiết</button>
-      <button>Mua ngay</button>
-    </div>
+      <p>Mod skin FF (Người Khác Nhìn Thấy) cho anh em ios, đã có hướng dẫn chi tiết khi mua hàng</p>
+      <div class="buttons">
+        <button type="button">Chi tiết</button>
+        <button type="button">Mua ngay</button>
+      </div>
+    </article>
 
-    <div class="product-card">
+    <article class="product-card">
       <h3>Liên Quân</h3>
       <p>Acc Liên Quân Random - Kho hàng: 685.044 | Đã bán: 998</p>
       <p><del>150đ</del> <strong>105đ</strong></p>
       <p>Acc test map - random - tỉ lệ khóa cao</p>
-      <button>Chi tiết</button>
-      <button>Mua ngay</button>
-    </div>
+      <div class="buttons">
+        <button type="button">Chi tiết</button>
+        <button type="button">Mua ngay</button>
+      </div>
+    </article>
 
-    <p>Nội dung mới để test Git</p>
-  </div>
+    <!-- Thêm sản phẩm khác ở đây -->
+  </section>
 
   <footer>
     <p>Liên hệ: cskh.ongtrum.net@gmail.com | Hotline: 0988888XXX</p>
