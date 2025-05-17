@@ -38,26 +38,15 @@
       0% { text-shadow: 2px 2px 10px rgba(0, 255, 0, 0.8); }
       100% { text-shadow: 2px 2px 20px rgba(0, 255, 0, 1); }
     }
-    input {
-      width: 250px;
-      padding: 10px;
+    input, button {
       font-size: 16px;
+      padding: 10px;
+      margin-top: 10px;
       border: 2px solid #00FF00;
       border-radius: 5px;
       background: black;
       color: #00FF00;
       text-align: center;
-      margin-top: 20px;
-    }
-    button {
-      margin-top: 10px;
-      padding: 10px 20px;
-      font-size: 16px;
-      border: 2px solid #00FF00;
-      background: black;
-      color: #00FF00;
-      border-radius: 5px;
-      cursor: pointer;
     }
     button:hover {
       background: #00FF00;
@@ -104,92 +93,82 @@
   </style>
 </head>
 <body>
-  <h1>CHÀO MỪNG BẠN ĐÃ VÀO ĐƯỢC TOOL TÀI XỈU 🎲 CỦA BỐ HÙNGISME10</h1>
 
-  <input type="text" id="md5Input" placeholder="Nhập mã MD5" />
-  <button onclick="predict()">Dự đoán</button>
-  <button id="musicToggle" onclick="toggleMusic()">Bật nhạc 🔇</button>
-  <p id="error"></p>
+<h1>CHÀO MỪNG BẠN ĐÃ VÀO ĐƯỢC TOOL TÀI XỈU 🎲 CỦA BỐ HÙNGISME10</h1>
 
-  <div class="circle-container">
-    <div id="tai" class="circle tai"></div>
-    <div id="xiu" class="circle xiu"></div>
-  </div>
+<input type="text" id="md5Input" placeholder="Nhập mã MD5" />
+<button onclick="predict()">Dự đoán</button>
+<button id="musicToggle">Bật nhạc 🔇</button>
+<p id="error"></p>
 
-  <div class="footer">
-    CHỦ TOOL HUNGISME10<br>
-    TELEGRAM: HUNGISME10<br>
-    TIKTOK: HUNGISME10<br>
-    FACEBOOK: HUNGVAN2009
-  </div>
+<div class="circle-container">
+  <div id="tai" class="circle tai"></div>
+  <div id="xiu" class="circle xiu"></div>
+</div>
 
-  <!-- 🔊 Dùng âm thanh từ file mp4 -->
-  <audio id="bgMusic" src="ssstik.io_1747469420960.mp4" loop></audio>
+<div class="footer">
+  CHỦ TOOL HUNGISME10<br>
+  TELEGRAM: HUNGISME10<br>
+  TIKTOK: HUNGISME10<br>
+  FACEBOOK: HUNGVAN2009
+</div>
 
-  <script>
-    const bgMusic = document.getElementById("bgMusic");
-    const musicToggle = document.getElementById("musicToggle");
+<audio id="bgMusic" src="Nonstop TikTok 2025 🎼 Mưa Rơi Vào Phòng Remix - Bầu Trời Ấy Nơi Xa Thế Nào Rồi Remix Hot TikTok.mp3" preload="auto" loop></audio>
 
-    // ✅ Phát nhạc hoặc dừng nhạc – phản hồi nhanh hơn
-    async function toggleMusic() {
-      try {
-        if (bgMusic.paused) {
-          await bgMusic.play();
-          musicToggle.textContent = "Tắt nhạc 🔈";
-        } else {
-          bgMusic.pause();
-          musicToggle.textContent = "Bật nhạc 🔇";
-        }
-      } catch (error) {
-        console.error("Không thể phát nhạc:", error);
-        musicToggle.textContent = "🔇 Không phát được nhạc!";
-      }
-    }
+<script>
+const bgMusic = document.getElementById("bgMusic");
+const musicToggle = document.getElementById("musicToggle");
 
-    // ✅ Cho phép phát nhạc sau khi người dùng click (tránh chặn autoplay)
-    document.body.addEventListener("click", () => {
-      if (bgMusic.paused) {
-        bgMusic.play().catch(() => {});
-      }
-    }, { once: true });
+// iOS cần tương tác người dùng trước khi cho phép phát
+musicToggle.addEventListener("click", () => {
+  if (bgMusic.paused) {
+    bgMusic.play().then(() => {
+      musicToggle.textContent = "Tắt nhạc 🔈";
+    }).catch(err => {
+      alert("⚠️ Không phát được nhạc. Trình duyệt iOS yêu cầu thao tác tay.");
+    });
+  } else {
+    bgMusic.pause();
+    musicToggle.textContent = "Bật nhạc 🔇";
+  }
+});
 
-    // ⚙️ Dự đoán tài/xỉu từ MD5
-    function isValidMD5(md5) {
-      return /^[a-fA-F0-9]{32}$/.test(md5);
-    }
+function isValidMD5(md5) {
+  return /^[a-fA-F0-9]{32}$/.test(md5);
+}
 
-    function hexXOR(md5) {
-      let result = 0;
-      for (let i = 0; i < md5.length; i += 2) {
-        result ^= parseInt(md5.substr(i, 2), 16);
-      }
-      return result % 2 === 0 ? "Tài" : "Xỉu";
-    }
+function hexXOR(md5) {
+  let result = 0;
+  for (let i = 0; i < md5.length; i += 2) {
+    result ^= parseInt(md5.substr(i, 2), 16);
+  }
+  return result % 2 === 0 ? "Tài" : "Xỉu";
+}
 
-    function predict() {
-      let input = document.getElementById("md5Input").value.trim();
-      let errorText = document.getElementById("error");
-      let tai = document.getElementById("tai");
-      let xiu = document.getElementById("xiu");
+function predict() {
+  let input = document.getElementById("md5Input").value.trim();
+  let errorText = document.getElementById("error");
+  let tai = document.getElementById("tai");
+  let xiu = document.getElementById("xiu");
 
-      if (!isValidMD5(input)) {
-        errorText.textContent = "Lỗi 🆘: Mã MD5 không hợp lệ!";
-        tai.style.animation = "";
-        xiu.style.animation = "";
-        return;
-      }
+  if (!isValidMD5(input)) {
+    errorText.textContent = "Lỗi 🆘: Mã MD5 không hợp lệ!";
+    tai.style.animation = "";
+    xiu.style.animation = "";
+    return;
+  }
 
-      errorText.textContent = "";
-      let result = hexXOR(input);
+  errorText.textContent = "";
+  let result = hexXOR(input);
 
-      if (result === "Tài") {
-        tai.style.animation = "blink 1s infinite";
-        xiu.style.animation = "";
-      } else {
-        xiu.style.animation = "blink 1s infinite";
-        tai.style.animation = "";
-      }
-    }
-  </script>
+  if (result === "Tài") {
+    tai.style.animation = "blink 1s infinite";
+    xiu.style.animation = "";
+  } else {
+    xiu.style.animation = "blink 1s infinite";
+    tai.style.animation = "";
+  }
+}
+</script>
 </body>
 </html>
