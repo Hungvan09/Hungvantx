@@ -1,130 +1,75 @@
 <!DOCTYPE html>
-
-<html lang="vi">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>HUNGISME10 - Trang chủ</title>
+  <meta charset="UTF-8">
+  <title>Mtuan Dev</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 0; background-color: #f8f8f8; }
-    header, nav, footer { background-color: #0077a3; color: white; padding: 10px; }
-    header { display: flex; justify-content: space-between; align-items: center; }
-    .logo { font-size: 24px; font-weight: bold; }
-    .search-bar { flex-grow: 1; margin: 0 20px; }
-    .search-bar input { width: 100%; padding: 8px; }
-    nav { display: flex; justify-content: center; gap: 15px; background-color: #005f80; }
-    nav a { color: white; text-decoration: none; font-weight: bold; }
-    .content { padding: 20px; }
-    .announcement, .product-card, .contact-info {
-      background: white; padding: 20px; border-radius: 10px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-bottom: 20px;
+    @keyframes rainbowBorder {
+      0% { border-color: red; }
+      14% { border-color: orange; }
+      28% { border-color: yellow; }
+      42% { border-color: green; }
+      57% { border-color: cyan; }
+      71% { border-color: blue; }
+      85% { border-color: violet; }
+      100% { border-color: red; }
     }
-    .product-card button {
-      background-color: #0077a3; color: white; border: none;
-      padding: 8px 12px; margin-right: 10px; cursor: pointer; border-radius: 6px;
+
+    .game-box {
+      border: 4px solid red;
+      border-radius: 0px;
+      padding: 15px;
+      margin: 20px;
+      width: fit-content;
+      animation: rainbowBorder 2s linear infinite;
     }
-    footer { text-align: center; font-size: 14px; background-color: #003d4d; padding: 20px 10px; }
+
+    .game-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .game-header img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .btn-group a {
+      padding: 10px 15px;
+      text-decoration: none;
+      color: white;
+      border-radius: 8px;
+    }
+
+    .btn-group a:nth-child(1) {
+      background-color: #007bff;
+    }
+
+    .btn-group a:nth-child(2) {
+      background-color: #28a745;
+    }
   </style>
 </head>
 <body>
-  <header>
-    <div class="logo">HUNGISME10</div>
-    <div class="search-bar"><input type="text" placeholder="Tìm kiếm sản phẩm..." /></div>
-    <div><span>0</span> | <span id="userDisplay">Guest</span> | <a href="#" onclick="showLogin()" style="color:white">Login</a></div>
-  </header>
 
-  <nav>
-    <a href="#">Trang chủ</a><a href="#">Sản phẩm</a><a href="#">Nạp tiền</a><a href="#">Lịch sử</a>
-    <a href="#">Affiliate Program</a><a href="#">Tài liệu API</a>
-  </nav>
-
-  <div class="content">
-    <div class="announcement">
-      <p><strong>🔌 Nạp từ 100k nhận thêm 20% số tiền nạp!</strong></p>
-      <p style="color: darkred">💬 Gia hạn gmail acc clon ff 2k/1 tháng</p>
-      <p style="color: darkred">💬 Mua sll acc clon ff giá 3k/1 acc ib admin</p>
-      <p>📌 Gửi qua zalo cho <strong style="color:blue">admin</strong> để được hoàn tiền</p>
-    </div>
-
-```
-<div class="product-card">
-  <h3>Free Fire</h3>
-  <p>Kho hàng: 16 | Đã bán: 17</p>
-  <p><strong>40.000đ</strong></p>
-  <button>Chi tiết</button><button>Mua ngay</button>
-</div>
-
-<div class="product-card">
-  <h3>Liên Quân</h3>
-  <p>Acc Random - Kho hàng: 685.044 | Đã bán: 998</p>
-  <p><del>150đ</del> <strong>105đ</strong></p>
-  <button>Chi tiết</button><button>Mua ngay</button>
-</div>
-
-<div class="contact-info">
-  <h3>Liên hệ</h3>
-  <p>Email: Vuh447973@gmail.com</p><p>SĐT: 0395385906</p>
-</div>
-```
-
+<div class="game-box">
+  <div class="game-header">
+    <img src="https://files.catbox.moe/1wahpe.jpg" alt="Free Fire">
+    <h2 style="margin: 0; font-size: 18px;">Free Fire</h2>
   </div>
-
-  <footer>
-    <p>Liên hệ: Vuh447973@gmail.com | Hotline: 0395385906</p>
-    <p>© HUNGISME10 - Website cung cấp tài khoản | Software by KHANGAPI</p>
-  </footer>
-
-  <!-- Đăng nhập -->
-
-  <div style="padding: 20px;">
-    <h3>Đăng nhập</h3>
-    <form id="loginForm" onsubmit="return false;">
-      <input type="text" id="loginUser" placeholder="Tên đăng nhập" required><br><br>
-      <input type="password" id="loginPass" placeholder="Mật khẩu" required><br><br>
-      <button onclick="handleLogin()">Đăng nhập</button>
-      <div id="loginMessage"></div>
-    </form>
-
-```
-<h3>Đăng ký</h3>
-<form id="registerForm" onsubmit="return false;">
-  <input type="text" id="regUser" placeholder="Tên đăng nhập" required><br><br>
-  <input type="password" id="regPass" placeholder="Mật khẩu" required><br><br>
-  <button onclick="handleRegister()">Đăng ký</button>
-  <div id="registerMessage"></div>
-</form>
-```
-
+  <div class="btn-group">
+    <a href="https://www.mediafire.com/file/3dpjpp7826p71lu/config.dat/file">Link Regedit</a>
+    <a href="https://www.mediafire.com/file/4h5ypaj5f6mqchh/fixlag.ini/file">Fix Lag</a>
   </div>
-
-  <script>
-    function handleLogin() {
-      const username = document.getElementById("loginUser").value;
-      const password = document.getElementById("loginPass").value;
-      fetch("login.php", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`
-      })
-      .then(res => res.text())
-      .then(data => {
-        if (data === "success") window.location.href = "dashboard.php";
-        else document.getElementById("loginMessage").innerText = data;
-      });
-    }
-
-    function handleRegister() {
-      const username = document.getElementById("regUser").value;
-      const password = document.getElementById("regPass").value;
-      fetch("register.php", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`
-      })
-      .then(res => res.text())
-      .then(data => document.getElementById("registerMessage").innerText = data);
-    }
-  </script>
+</div>
 
 </body>
 </html>
